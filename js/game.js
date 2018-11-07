@@ -30,8 +30,8 @@ var lifeText;
 var startgame = false;
 var gameOver = false;
 
-var ENEMY_SPEED = 1/20000;
-var ROBERT_SPEED = 1/10000;
+var ENEMY_SPEED = 1/30000;
+var ROBERT_SPEED = 1/60000;
 
 
 
@@ -299,12 +299,8 @@ function update(time, delta) {
     // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {
     //     enemies.children.entries = [];
     // }
-    
+           
 
-    
-
-        }       
-    }
 
 
     for (var i=0; i < enemies.children.entries.length; i++) {

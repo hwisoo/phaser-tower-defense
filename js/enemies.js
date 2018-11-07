@@ -132,7 +132,10 @@ var Robert = new Phaser.Class({
 
 });
 
-=======
+var Robert = new Phaser.Class({
+
+
+
     Extends: Phaser.GameObjects.Image,
     initialize:
     function Robert (scene)
