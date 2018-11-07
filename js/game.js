@@ -20,6 +20,7 @@ var turretSpace = 2;
 var path;
 var turrets;
 var enemies;
+var roberts;
 var turretButton = false;
 var turret2Button = false;
 var gold = 300;
@@ -31,6 +32,7 @@ var gameOver = false;
 
 
 var ENEMY_SPEED = 1/20000;
+var ROBERT_SPEED = 1/10000;
 
 
 
@@ -64,6 +66,7 @@ function preload() {
     this.load.image('tower', 'assets/tower.png');
     this.load.image('tower2', 'assets/tower2.png');
     this.load.image('enemy', 'assets/enemy.png');
+    this.load.image('robert', 'assets/robert1.png');
     this.load.image('towerOneButton', 'assets/towerOneButton.png');
     this.load.image('towerTwoButton', 'assets/towerTwoButton.png');
     this.load.image('uibar', 'assets/bottombar.png');
@@ -97,8 +100,11 @@ function create() {
   //visualize the path
   path.draw(graphics);
 
+  //enemies
   enemies = this.physics.add.group({ classType: Enemy, runChildUpdate: true});
   this.nextEnemy = 0;
+  roberts = this.physics.add.group({ classType: Robert, runChildUpdate: true});
+  this.nextRobert = 0;
 
   //turrets
   turrets = this.add.group({ classType: Turret, runChildUpdate: true});
@@ -121,6 +127,8 @@ function create() {
 
   this.physics.add.overlap(enemies, bullets, damageEnemyBullet);
   this.physics.add.overlap(enemies, arrows, damageEnemyArrow);
+  this.physics.add.overlap(roberts, bullets, damageRobertBullet);
+  this.physics.add.overlap(roberts, arrows, damageRobertArrow);
 
 
     
@@ -137,7 +145,7 @@ function create() {
 }
 
 
-
+//Damage creep functions
 
 function damageEnemyBullet(enemy, bullet) {  
     // only if both enemy and bullet are alive
@@ -165,6 +173,32 @@ function damageEnemyArrow(enemy, arrow) {
     }
 }
 
+function damageRobertBullet(robert, bullet) {  
+    // only if both robert and bullet are alive
+    if (robert.active === true && bullet.active === true) {
+        // we remove the bullet right away
+        var BULLET_DAMAGE = 50;
+        bullet.setActive(false);
+        bullet.setVisible(false);    
+        
+        // decrease the robert hp with BULLET_DAMAGE
+        robert.receiveDamage(BULLET_DAMAGE);
+    }
+}
+
+function damageRobertArrow(robert, arrow) {  
+    // only if both robert and bullet are alive
+    if (robert.active === true && arrow.active === true) {
+        // we remove the bullet right away
+        var ARROW_DAMAGE = 100;
+        arrow.setActive(false);
+        arrow.setVisible(false);    
+        
+        // decrease the robert hp with BULLET_DAMAGE
+        robert.receiveDamage(ARROW_DAMAGE);
+    }
+}
+
 function drawGrid(graphics) {
     graphics.lineStyle(1, 0x0000ff, 0.8);
     for(var i = 0; i < 19; i++) {
@@ -188,9 +222,9 @@ function update(time, delta) {
             gameOverButton.destroy();
             location.reload();
         return;
-    })
-}
-    // if its time for the next enemy
+        })
+    }
+    
 
     if (time > this.nextEnemy && enemies.children.entries.length < 5 && startgame ===true)
     {
@@ -205,15 +239,40 @@ function update(time, delta) {
             enemy.startOnPath();
 
             this.nextEnemy = time + 500;
-        }       
+        }
+    }       
+
+    if (time > this.nextRobert && roberts.children.entries.length < 5 && startgame ===true)
+    {
+        var robert = roberts.get();
+        
+        if (robert)
+        {
+            robert.setActive(true);
+            robert.setVisible(true);
+
+            // place the robert at the start of the path
+            robert.startOnPath();
+ 
+            this.nextRobert = time + 1750;
+        }
+    }
     // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {
     //     enemies.children.entries = [];
     // }
-    }
+    
+
+    
 
     for (var i=0; i < enemies.children.entries.length; i++) {
         if (enemies.children.entries[i].active === false) {
             enemies.children.entries.splice(i, 1);
+        }
+    }
+
+    for (var i=0; i < roberts.children.entries.length; i++) {
+        if (roberts.children.entries[i].active === false) {
+            roberts.children.entries.splice(i, 1);
         }
     }
     endGame();
@@ -245,7 +304,6 @@ function addArrow(x, y, angle) {
 function endGame() {
     if (life <= 0 ) {
     gameOver = true;
-    //we need to insert a pop up Game Over, button with refresh to start over
     }
 }
 
