@@ -29,6 +29,9 @@ var life = 100;
 var lifeText;
 var startgame = false;
 var gameOver = false;
+var killCounter;
+var kills = 0;
+var killArray = [0,50,100,200,400,1000];
 
 var ENEMY_SPEED = 1/30000;
 var ROBERT_SPEED = 1/60000;
@@ -164,7 +167,7 @@ function create() {
   this.physics.add.overlap(roberts, bullets, damageRobertBullet);
   this.physics.add.overlap(roberts, arrows, damageRobertArrow);
 
-
+  killCounter = this.add.text(320, 40, 'Kills: ' + kills, { fontSize: '28px',fontFamily: 'Impact', fill: '#ffbfbf'});
     
     goldText = this.add.text(950, 1130, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
     lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
@@ -227,7 +230,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 100;
+        var ARROW_DAMAGE = 150;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -264,7 +267,7 @@ function update(time, delta) {
     }
     
 
-    if (time > this.nextEnemy && enemies.children.entries.length < 5 && startgame ===true)
+    if (time > this.nextEnemy && startgame ===true)
     {
         var enemy = enemies.get();
         
@@ -276,7 +279,7 @@ function update(time, delta) {
             // place the enemy at the start of the path
             enemy.startOnPath();
 
-            this.nextEnemy = time + 500;
+            this.nextEnemy = time + 1000;
 
         }
     }       
