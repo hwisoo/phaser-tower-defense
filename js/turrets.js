@@ -26,15 +26,16 @@ var Turret = new Phaser.Class({
     
     fire: function() {
         // turret.distance for enemy targeting
-        var enemy = getEnemy(this.x, this.y, 500);
+        var enemy = getEnemy(this.x, this.y, 200);
+        var robert = getRobert(this.x, this.y, 300);
+
         if(enemy) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
             addBullet(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
 
-        var robert = getRobert(this.x, this.y, 500);
-        if(robert) {
+        else if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
             addBullet(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
@@ -83,19 +84,36 @@ function ArrowTurret (scene)
         // turret.distance for enemy targeting
         
         
-        var enemy = getEnemy(this.x, this.y, 1000);
-        if(enemy) {
-            var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
-            addArrow(this.x, this.y, angle);
-            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
-        }
-
+        var enemy = getEnemy(this.x, this.y, 500);
         var robert = getRobert(this.x, this.y, 500);
+        
         if(robert) {
             var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
             addArrow(this.x, this.y, angle);
             this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
         }
+
+        else if(enemy) {
+            var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
+            addArrow(this.x, this.y, angle);
+            this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        }
+
+        // if(robert || enemy) {
+        //     var angle = Phaser.Math.Angle.Between(this.x, this.y, robert.x, robert.y);
+        //     addArrow(this.x, this.y, angle);
+        //     this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        // }
+
+        // else if(enemy) {
+        //     var angle = Phaser.Math.Angle.Between(this.x, this.y, enemy.x, enemy.y);
+        //     addArrow(this.x, this.y, angle);
+        //     this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
+        // }
+
+
+
+
     },
 
     update: function (time, delta)

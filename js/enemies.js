@@ -76,14 +76,14 @@ var Robert = new Phaser.Class({
         Phaser.GameObjects.Image.call(this, scene, 0, 0, 'robert');
 
         this.follower = { t: 0, vec: new Phaser.Math.Vector2() };
-        this.hp = 400;
+        this.hp = 250;
     },
 
     startOnPath: function ()
     {   
         // set the t parameter at the start of the path
         this.follower.t = 0;
-        this.hp = 400;
+        this.hp = 250;
         
         // get x and y of the given t point
         path.getPoint(this.follower.t, this.follower.vec);
@@ -98,7 +98,7 @@ var Robert = new Phaser.Class({
         if(this.hp <= 0) {
             this.setActive(false);
             this.setVisible(false); 
-            gold += 25;
+            gold += 100;
             goldText.setText('Gold: '+ gold);    
         }
     },
