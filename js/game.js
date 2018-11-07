@@ -31,7 +31,8 @@ var startgame = false;
 var gameOver = false;
 var killCounter;
 var kills = 0;
-var killArray = [0,50,100,200,400,1000];
+var level = 1;
+var levelText;
 
 var ENEMY_SPEED = 1/40000;
 var ROBERT_SPEED = 1/120000;
@@ -169,10 +170,10 @@ function create() {
   this.physics.add.overlap(roberts, bullets, damageRobertBullet);
   this.physics.add.overlap(roberts, arrows, damageRobertArrow);
 
-  killCounter = this.add.text(320, 40, 'Kills: ' + kills, { fontSize: '28px',fontFamily: 'Impact', fill: '#ffbfbf'});
-    
+    killCounter = this.add.text(320, 40, 'Kills: ' + kills, { fontSize: '28px',fontFamily: 'Impact', fill: '#ffbfbf'});
     goldText = this.add.text(950, 1130, 'Gold: ' + gold, { fontSize: '28px', fill: '#000' });
-    lifeText = this.add.text(950 ,30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
+    lifeText = this.add.text(950, 30, 'Life: ' + life, {fontSize: '28px', fill: '#FEFE54' });
+    levelText = this.add.text(600, 30, 'Level: ' + level, {fontFamily: 'Impact', fontSize: '28px', fill: '#FEFE54' });
     const startButton = this.add.image(600, 400, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
@@ -281,7 +282,7 @@ function update(time, delta) {
             // place the enemy at the start of the path
             enemy.startOnPath();
 
-            this.nextEnemy = time + (5000/(1+(.07*kills)));
+            this.nextEnemy = time + (5000/(1+(1.2*level)));
 
         }
     }       
@@ -319,6 +320,9 @@ function update(time, delta) {
             roberts.children.entries.splice(i, 1);
         }
     }
+
+    level = Math.ceil(time/40000);
+    levelText.setText("Level: " + level);
 
     endGame();
 }
