@@ -62,7 +62,7 @@ var ArrowTurret = new Phaser.Class({
     Extends: Phaser.GameObjects.Image,
     
     initialize:
-function ArrowTurret (scene)
+    function ArrowTurret (scene)
     {
         
             Phaser.GameObjects.Image.call(this, scene, 0, 0,'tower2');
@@ -121,7 +121,7 @@ function ArrowTurret (scene)
         // time to shoot, turret.speed interval for Arrows
         if(time > this.nextTic) {
             this.fire();
-            this.nextTic = time + 2000;
+            this.nextTic = time + 1000;
         }
         // if(gameOver== true){
         //     turret.destroy();

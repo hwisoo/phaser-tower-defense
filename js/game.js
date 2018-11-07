@@ -33,8 +33,10 @@ var killCounter;
 var kills = 0;
 var killArray = [0,50,100,200,400,1000];
 
-var ENEMY_SPEED = 1/30000;
-var ROBERT_SPEED = 1/60000;
+var ENEMY_SPEED = 1/40000;
+var ROBERT_SPEED = 1/120000;
+
+
 
 
 
@@ -201,7 +203,7 @@ function damageEnemyArrow(enemy, arrow) {
     // only if both enemy and bullet are alive
     if (enemy.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 100;
+        var ARROW_DAMAGE = 300;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -230,7 +232,7 @@ function damageRobertBullet(robert, bullet) {
     // only if both robert and bullet are alive
     if (robert.active === true && arrow.active === true) {
         // we remove the bullet right away
-        var ARROW_DAMAGE = 150;
+        var ARROW_DAMAGE = 300;
         arrow.setActive(false);
         arrow.setVisible(false);    
         
@@ -279,12 +281,12 @@ function update(time, delta) {
             // place the enemy at the start of the path
             enemy.startOnPath();
 
-            this.nextEnemy = time + 1000;
+            this.nextEnemy = time + (5000/(1+(.07*kills)));
 
         }
     }       
 
-    if (time > this.nextRobert && roberts.children.entries.length < 5 && startgame ===true)
+    if (time > this.nextRobert && roberts.children.entries.length < 5 && startgame ===true && kills > 20)
     {
         var robert = roberts.get();
         
@@ -296,7 +298,7 @@ function update(time, delta) {
             // place the robert at the start of the path
             robert.startOnPath();
  
-            this.nextRobert = time + 1750;
+            this.nextRobert = time + (10000/(1+(.07*kills)));
         }
     }
     // } else if (enemies.children.entries.length === 5 && this.enemy.children.entries.active === false) {

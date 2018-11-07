@@ -49,7 +49,7 @@ var Bullet = new Phaser.Class({
 
     });
 
-    var Arrow = new Phaser.Class({
+var Arrow = new Phaser.Class({
 
         Extends: Phaser.GameObjects.Image,
 
