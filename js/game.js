@@ -39,11 +39,7 @@ var bulletSound;
 var arrowSound;
 var fastBulletSound;
 var deathSound;
-<<<<<<< HEAD
 var upgrade = 1;
-=======
-var turretOneButton;
->>>>>>> 238c115e3b7f2bd616432646fde11964ff1abcce
 
 
 
@@ -191,7 +187,6 @@ function create() {
     turretTwoButton.tint = 0xffffff;
     turretOneButton.tint = 0xffffff;});
   this.input.on('pointerdown', placeTurret3);
-<<<<<<< HEAD
   
   const upgradeButton = this.add.image(400, 1170, 'upgrade');
   upgradeButton.setInteractive();
@@ -203,9 +198,6 @@ function create() {
         }
   })
   
-=======
-
->>>>>>> 238c115e3b7f2bd616432646fde11964ff1abcce
   
   bullets = this.physics.add.group({classType: Bullet, runChildUpdate: true});
   arrows = this.physics.add.group({classType: Arrow, runChildUpdate: true});
