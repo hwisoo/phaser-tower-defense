@@ -106,6 +106,7 @@ function preload() {
     this.load.image('startButton', 'assets/title.png');
     this.load.image('gameOver', 'assets/gameover.jpg');
     this.load.image('upgrade', 'assets/upgradeButton.png');
+    this.load.image('skull', 'assets/skull.png');
     
     // load audio
     this.load.audio('arrow', '/audio/arrow.mp3');
@@ -116,9 +117,10 @@ function preload() {
 };
 
 
+
 function create() {
     game.scene.pause("main");
-    this.add.image(800,600, 'mapOne');
+    mapOne = this.add.image(800,600, 'mapOne');
   // this graphics element is only for visualization,
   // its not related to our path
   var graphics = this.add.graphics();
@@ -223,6 +225,7 @@ function create() {
     const startButton = this.add.image(800, 600, 'startButton');
     startButton.setInteractive();
     startButton.on('pointerdown', function() {
+        time=0;
         startgame = true;
         startButton.destroy();
     })
@@ -377,11 +380,14 @@ function drawGrid(graphics) {
 function update(time, delta) { 
    
     if(gameOver) {
+        const skull = this.add.image(700, 400, 'skull');
         const gameOverButton = this.add.image(700, 400, 'gameOver');
+        mapOne.tint = 0xbc0505;
         gameOverButton.setInteractive();
         gameOverButton.on('pointerdown', function() {
-            
             gameOverButton.destroy();
+            mapOne.tint = 0xffffff;
+
             location.reload();
         return;
         })
